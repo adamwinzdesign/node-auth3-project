@@ -27,7 +27,7 @@ function checkRole(role) {
   return (req, res, next) => {
     if(
       req.decodedToken && 
-      req.decodedToken &&
+      req.decodedToken.role &&
       req.decodedToken.role.toLowerCase() === role
     ) {
       next();
@@ -36,3 +36,7 @@ function checkRole(role) {
     }
   }
 }
+
+// registering provides a hashed password, which is returned to the user
+// user logs in with their password as they originally provided, which then returns a token
+// user then needs to include the token in an authorization header to access restricted routes

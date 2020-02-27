@@ -8,12 +8,12 @@ const { jwtSecret } = require('../config/secrets.js');
 // register
 router.post('/register', (req, res) => {
   const user = req.body;
-  const hash = bncrypt.hashSync(user.password, 10);
+  const hash = bcrypt.hashSync(user.password, 10);
   user.password = hash;
 
   Users.add(user)
     .then(saved => {
-      res.status(201).json(saved);
+      res.status(201).json(`username: ${saved.username}, department: ${saved.department}`);
     })
     .catch(error => {
       res.status(500).json(error);
